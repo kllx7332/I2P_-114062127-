@@ -56,28 +56,9 @@ class ChatOverlay(UIComponent):
         
         The goal of this section is simple:
         # Turn keyboard keys into characters that appear inside the chat box.
-
-        ex: 
-        # Letters
-        shift = input_manager.key_down(pg.K_LSHIFT) or input_manager.key_down(pg.K_RSHIFT)
-        for k in range(pg.K_a, pg.K_z + 1):
-            if input_manager.key_pressed(k):
-                ch = chr(ord('a') + (k - pg.K_a))
-                self._input_text += (ch.upper() if shift else ch)
-
-        # TODO
-        # Enter to send. You can use the below code, just fill in the blanks.
-        if input_manager.key_pressed(...) or input_manager.key_pressed(...):
-            txt = self._input_text.strip()
-            if txt and self._____:
-                ok = False
-                try:
-                    ok = self.______(...) <- over here we need to send chat message, what function should we call?
-                except Exception:
-                    ok = False
-                if ok:
-                    self._input_text = ""
+       
         """
+        
         # Letters
         shift = input_manager.key_down(pg.K_LSHIFT) or input_manager.key_down(pg.K_RSHIFT)
         for k in range(pg.K_a, pg.K_z + 1):
@@ -85,6 +66,11 @@ class ChatOverlay(UIComponent):
                 ch = chr(ord('a') + (k - pg.K_a))
                 self._input_text += (ch.upper() if shift else ch)
         
+        """
+        # TODO
+        # Enter to send. You can use the below code, just fill in the blanks.
+
+        """
         # Numbers
         for k in range(pg.K_0, pg.K_9 + 1):
             if input_manager.key_pressed(k):
@@ -173,12 +159,6 @@ class ChatOverlay(UIComponent):
         text_surf = self._font_input.render(txt, True, (255, 255, 255))
         _ = screen.blit(text_surf, (x + 8, box_y + 4))
         # Caret
-        """
-        # if self._cursor_visible:
-        #     cx = x + 8 + text_surf.get_width() + 2
-        #     cy = box_y + 6
-        #     pg.draw.rect(screen, (255, 255, 255), pg.Rect(cx, cy, 2, box_h - 12))
-        """
         if self._cursor_visible:
             cx = x + 8 + text_surf.get_width() + 2
             cy = box_y + 6
