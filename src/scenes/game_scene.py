@@ -1133,6 +1133,18 @@ class GameScene(Scene):
             center=(self.navigation_button.hitbox.centerx, self.navigation_button.hitbox.centery)
         )
         screen.blit(scaled_letter, letter_rect)
+        # Darken background when any overlay/chat is active so overlay stands out
+        overlay_any = (
+            self.overlay_active
+            or self.bagpack_overlay_active
+            or self.shop_overlay_active
+            or self.navigation_overlay_active
+            or (self._chat_overlay and getattr(self._chat_overlay, 'is_open', False))
+        )
+        if overlay_any:
+            dark_surf = pg.Surface((GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT), pg.SRCALPHA)
+            dark_surf.fill((0, 0, 0, 150))
+            screen.blit(dark_surf, (0, 0))
         if self.navigation_overlay_active:
             # Draw navigation overlay
             overlay_img_scaled = pg.transform.scale(
