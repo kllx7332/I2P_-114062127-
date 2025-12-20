@@ -1016,6 +1016,8 @@ class GameScene(Scene):
             self.navigation_start.update(dt)
             self.navigation_gym.update(dt)
             self.navigation_new_world.update(dt)
+        # Always update setting button (so能點擊)
+        self.ingame_setting_button.update(dt)
         if self.overlay_active:
             # update checkbox above back_button first, then back_button
             self.checkbox_button.update(dt)
@@ -1062,6 +1064,12 @@ class GameScene(Scene):
                         # update slider_value based on mouse x
                         rel_x = mx - track_left
                         self.slider_value = max(0.0, min(1.0, rel_x / max(1, track_width - knob_w)))
+                        # Update audio volume (0-1)
+                        # 直接使用頂部已匯入的 GameSettings, sound_manager
+                        GameSettings.AUDIO_VOLUME = self.slider_value
+                        # Set current BGM volume if playing
+                        if hasattr(sound_manager, 'current_bgm') and sound_manager.current_bgm:
+                            sound_manager.current_bgm.set_volume(GameSettings.AUDIO_VOLUME)
                     # stop dragging on release
                     if input_manager.mouse_released(1):
                         self.slider_dragging = False
